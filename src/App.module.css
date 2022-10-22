@@ -1,0 +1,81 @@
+.main {
+  max-width: 46rem;
+  margin: 0 auto 2rem;
+  padding: 0 1rem;
+}
+
+.newTaskForm {
+  height: 54px;
+  margin-top: calc(-1.688rem);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 0.5rem;
+}
+
+.newTaskForm input {
+  height: 100%;
+  background: var(--gray-500);
+  color: var(--gray-100);
+  border-radius: 8px;
+  border: 1px solid var(--gray-700);
+  padding: 1rem;
+
+  flex: 1;
+}
+
+.newTaskForm button {
+  height: 100%;
+  background: var(--blue-500);
+  color: var(--gray-100);
+  border-radius: 8px;
+  padding: 1rem;
+  line-height: 0;
+  font-size: 0.875rem;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 0.25rem;
+}
+
+.wrapper {
+  margin-top: 4rem;
+}
+
+.wrapper header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.infoTasks {
+  display: flex;
+  align-items: center;
+
+  gap: 0.5rem
+}
+
+.infoTasks strong {
+  color: var(--blue-300);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.infoTasks span {
+  font-size: 0.875rem;
+  font-weight: bold;
+  padding: 0.125rem 0.625rem;
+  background: var(--gray-400);
+  color: var(--gray-200);
+  border-radius: 999px;
+}
+
+.todoList {
+
+  margin-top: 1.563rem;
+}

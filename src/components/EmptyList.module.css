@@ -1,0 +1,22 @@
+.wrapper {
+  border-top: 1px solid var(--gray-400);
+  border-radius: 8px;
+  padding: 4rem 1.5rem;
+  text-align: center;
+}
+
+.infoArea {
+  margin-top: 1rem;
+}
+
+.infoArea strong {
+  display: block;
+  color: var(--gray-300);
+  line-height: 1.6;
+}
+
+.infoArea span {
+  display: block;
+  color: var(--gray-300);
+  line-height: 1.6;
+}
