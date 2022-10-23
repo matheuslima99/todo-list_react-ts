@@ -5,8 +5,11 @@ import { PlusCircle } from "phosphor-react";
 
 import { Header } from "./components/Header";
 import { EmptyList } from "./components/EmptyList";
+import { TaskItem } from "./components/TaskItem";
 
 export function App() {
+  const sla = [1, 2, 5, 5, 6, 6];
+
   return (
     <div>
       <Header />
@@ -15,7 +18,7 @@ export function App() {
         <form className={styles.newTaskForm}>
           <input name="newTask" placeholder="Adicione uma nova tarefa" />
 
-          <button>
+          <button type="submit" >
             Criar
             <PlusCircle size={18} />
           </button>
@@ -35,7 +38,15 @@ export function App() {
           </header>
 
           <div className={styles.todoList}>
-            <EmptyList />
+            {sla.length ? (
+              <ul>
+                {sla.map((task) => (
+                  <TaskItem />
+                ))}
+              </ul>
+            ) : (
+              <EmptyList />
+            )}
           </div>
         </section>
       </main>
