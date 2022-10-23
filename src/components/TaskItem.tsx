@@ -2,16 +2,25 @@ import { Trash } from "phosphor-react";
 
 import styles from "./TaskItem.module.css";
 
-export function TaskItem() {
+import { Task } from "../App";
+
+interface TaskProps {
+  taskItem: Task;
+}
+
+export function TaskItem({ taskItem }: TaskProps) {
   return (
     <li className={styles.wrapper}>
-      <label className={styles.checkbox}>
+      <label
+        style={{
+          textDecoration: `${taskItem.done && "line-through"}`,
+          color: `${taskItem.done && "#808080"}`,
+        }}
+        className={styles.checkbox}
+      >
         {" "}
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis
-        consequatur cum quo exercitationem ex, enim, similique aperiam ullam
-        illum magnam quod labore autem delectus ea perspiciatis sed culpa
-        maiores hic.
-        <input type="checkbox" />
+        {taskItem.task}
+        <input type="checkbox" checked={taskItem.done} />
         <span className={styles.check}></span>
       </label>
 
