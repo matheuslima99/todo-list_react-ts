@@ -9,16 +9,16 @@ import { Task } from "../App";
 interface TaskProps {
   taskItem: Task;
   onDeleteTask: (task: string) => void;
-  onToggle: (id: string) => void;
+  onToggleChecked: (id: string) => void;
 }
 
-export function TaskItem({ taskItem, onDeleteTask, onToggle }: TaskProps) {
+export function TaskItem({ taskItem, onDeleteTask, onToggleChecked }: TaskProps) {
   function deleteTask() {
     onDeleteTask(taskItem.id);
   }
 
   function toggleIsChecked() {
-    onToggle(taskItem.id);
+    onToggleChecked(taskItem.id);
   }
 
   return (

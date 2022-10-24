@@ -47,7 +47,7 @@ export function App() {
     setTaskList(taskList.filter((t) => t.id !== taskToDelete));
   }
 
-  function toggleIsDone(taskId: string) {
+  function toggleChecked(taskId: string) {
     const newList = taskList.map((task) => {
       if (task.id === taskId) {
         return {
@@ -89,7 +89,7 @@ export function App() {
 
             <div className={styles.infoTasks}>
               <strong style={{ color: " #8284fa" }}>Concluídas</strong>
-              <span>{completedTasks.length}</span>
+              <span>{`${completedTasks.length} de ${taskList.length}`}</span>
             </div>
           </header>
 
@@ -101,7 +101,7 @@ export function App() {
                     key={task.id}
                     taskItem={task}
                     onDeleteTask={deleteTask}
-                    onToggle={toggleIsDone}
+                    onToggleChecked={toggleChecked}
                   />
                 ))}
               </ul>
