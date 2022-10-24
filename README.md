@@ -50,7 +50,7 @@
 <!-- ABOUT THE PROJECT -->
 ## Sobre o projeto
 
- <a href="">
+ <a href="https://github.com/matheuslima99/todo-list_react-ts">
     <img src="./.github/assets/screen-todo.png" 
     alt="Logo">
   
