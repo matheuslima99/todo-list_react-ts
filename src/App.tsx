@@ -19,8 +19,10 @@ export interface Task {
 export function App() {
   const [newTask, setNewTask] = useState("");
   const [taskList, setTaskList] = useState<Task[]>([]);
-  const [isChecked, setIsChecked] = useState(false);
 
+  const completedTasks = taskList.filter((t) => {
+    return t.done;
+  });
   const isNewCommentEmpty = newTask.trim().length === 0;
 
   function handleNewTaskChange(event: ChangeEvent<HTMLInputElement>) {
@@ -35,13 +37,29 @@ export function App() {
       {
         id: uuidv4(),
         task: newTask,
-        done: isChecked,
+        done: false,
       },
     ]);
     setNewTask("");
   }
 
-  function deleteTask(taskToDelete: string) {}
+  function deleteTask(taskToDelete: string) {
+    setTaskList(taskList.filter((t) => t.id !== taskToDelete));
+  }
+
+  function toggleIsDone(taskId: string) {
+    const newList = taskList.map((task) => {
+      if (task.id === taskId) {
+        return {
+          ...task,
+          done: !task.done,
+        };
+      }
+      return task;
+    });
+
+    setTaskList([...newList]);
+  }
 
   return (
     <div>
@@ -71,7 +89,7 @@ export function App() {
 
             <div className={styles.infoTasks}>
               <strong style={{ color: " #8284fa" }}>Concluídas</strong>
-              <span>0</span>
+              <span>{completedTasks.length}</span>
             </div>
           </header>
 
@@ -79,7 +97,12 @@ export function App() {
             {taskList.length ? (
               <ul>
                 {taskList.map((task) => (
-                  <TaskItem key={task.id} taskItem={task} />
+                  <TaskItem
+                    key={task.id}
+                    taskItem={task}
+                    onDeleteTask={deleteTask}
+                    onToggle={toggleIsDone}
+                  />
                 ))}
               </ul>
             ) : (
