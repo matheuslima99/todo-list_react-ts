@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import "./global.css";
@@ -10,6 +10,8 @@ import { Header } from "./components/Header";
 import { EmptyList } from "./components/EmptyList";
 import { TaskItem } from "./components/TaskItem";
 
+import { getSavedTask, saveTasks } from "./services/storeTasks";
+
 export interface Task {
   id: string;
   task: string;
@@ -17,34 +19,48 @@ export interface Task {
 }
 
 export function App() {
-  const [newTask, setNewTask] = useState("");
+  const [task, setTask] = useState("");
   const [taskList, setTaskList] = useState<Task[]>([]);
+
+  useEffect(() => {
+    function loadTasks() {
+      const tasks = getSavedTask("@TaskList");
+      setTaskList(tasks);
+    }
+    loadTasks();
+  }, []);
 
   const completedTasks = taskList.filter((t) => {
     return t.done;
   });
-  const isNewCommentEmpty = newTask.trim().length === 0;
+
+  const isNewCommentEmpty = task.trim().length === 0;
 
   function handleNewTaskChange(event: ChangeEvent<HTMLInputElement>) {
-    setNewTask(event.target.value);
+    setTask(event.target.value);
   }
 
   function handleCreateNewTask(event: FormEvent) {
     event.preventDefault();
 
-    setTaskList([
+    const newTask = [
       ...taskList,
       {
         id: uuidv4(),
-        task: newTask,
+        task,
         done: false,
       },
-    ]);
-    setNewTask("");
+    ];
+
+    setTaskList(newTask);
+    saveTasks("@TaskList", newTask);
+    setTask("");
   }
 
   function deleteTask(taskToDelete: string) {
-    setTaskList(taskList.filter((t) => t.id !== taskToDelete));
+    const delTask = taskList.filter((t) => t.id !== taskToDelete);
+    setTaskList(delTask);
+    saveTasks("@TaskList", delTask);
   }
 
   function toggleChecked(taskId: string) {
@@ -57,8 +73,8 @@ export function App() {
       }
       return task;
     });
-
-    setTaskList([...newList]);
+    setTaskList(newList);
+    saveTasks("@TaskList", newList);
   }
 
   return (
@@ -70,7 +86,7 @@ export function App() {
           <input
             name="newTask"
             placeholder="Adicione uma nova tarefa"
-            value={newTask}
+            value={task}
             onChange={handleNewTaskChange}
           />
 
